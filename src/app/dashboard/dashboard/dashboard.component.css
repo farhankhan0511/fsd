@@ -1,0 +1,246 @@
+.dashboard-container {
+  padding: 2rem;
+  background-color: #f8f9fa;
+}
+
+.welcome-section {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.welcome-section h2 {
+  font-size: 1.75rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.welcome-section .lead {
+  font-size: 1.25rem;
+  color: #6c757d;
+}
+
+.actions-section {
+  margin-bottom: 2rem;
+}
+
+.btn-view-budgets {
+  background-color: #007bff;
+  color: #ffffff;
+  padding: 0.75rem 1.5rem;
+  border-radius: 4px;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.btn-view-budgets:hover {
+  background-color: #0056b3;
+}
+
+.add-budget-section {
+  background-color: #ffffff;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 2rem;
+}
+
+.add-budget-section h4 {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+  color: #333;
+}
+
+.add-budget-section .form-inline {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  align-items: flex-end;
+}
+
+.add-budget-section .form-group {
+  flex: 1;
+  min-width: 200px;
+}
+
+.add-budget-section label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #495057;
+  font-weight: 500;
+}
+
+.add-budget-section .form-control {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  transition: border-color 0.15s ease-in-out;
+}
+
+.add-budget-section .form-control:focus {
+  border-color: #80bdff;
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+}
+
+.add-budget-section .btn-primary {
+  background-color: #007bff;
+  color: #ffffff;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.15s ease-in-out;
+  min-width: 120px;
+  margin-top: 1.5rem;
+}
+
+.add-budget-section .btn-primary:hover:not(:disabled) {
+  background-color: #0056b3;
+}
+
+.add-budget-section .btn-primary:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.add-budget-section .invalid-feedback {
+  display: block;
+  width: 100%;
+  margin-top: 0.25rem;
+  font-size: 80%;
+  color: #dc3545;
+}
+
+.budget-data-section {
+  background-color: #ffffff;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.budget-data-section h4 {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th,
+.table td {
+  padding: 0.75rem;
+  text-align: left;
+  border: 1px solid #dee2e6;
+}
+
+.table th {
+  background-color: #f8f9fa;
+  font-weight: bold;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+  background-color: #f8f9fa;
+}
+
+.no-budgets {
+  text-align: center;
+  font-size: 1rem;
+  color: #6c757d;
+}
+
+/* Add these new styles for the edit section */
+.edit-budget-section {
+  background-color: #f8f9fa;
+  padding: 2rem;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+  border: 2px solid #007bff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.edit-budget-section h4 {
+  color: #007bff;
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+}
+
+.edit-budget-section h4::before {
+  content: "✏️";
+  margin-right: 0.5rem;
+}
+
+.edit-budget-section .form-inline {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.edit-budget-section .form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.edit-budget-section .form-group label {
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: #495057;
+}
+
+.edit-budget-section .form-control {
+  padding: 0.75rem;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.edit-budget-section .form-control:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.edit-budget-section .invalid-feedback {
+  color: #dc3545;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
+
+.edit-budget-section .btn-group {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+}
+
+.edit-budget-section .btn {
+  padding: 0.75rem 1.5rem;
+  font-weight: 500;
+  border-radius: 4px;
+  transition: all 0.2s ease-in-out;
+}
+
+.edit-budget-section .btn-success {
+  background-color: #28a745;
+  border: none;
+}
+
+.edit-budget-section .btn-success:hover {
+  background-color: #218838;
+  transform: translateY(-1px);
+}
+
+.edit-budget-section .btn-secondary {
+  background-color: #6c757d;
+  border: none;
+}
+
+.edit-budget-section .btn-secondary:hover {
+  background-color: #5a6268;
+  transform: translateY(-1px);
+}

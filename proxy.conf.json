@@ -1,0 +1,10 @@
+{
+    "/apiX": {
+        "target": "http://172.10.8.61:8080/sports-backend-0.0.1-SNAPSHOT/",
+        "secure": false,
+        "changeOrigin": true,
+        "pathRewrite": {
+            "^/apiX": "/api"
+        }
+    }
+}

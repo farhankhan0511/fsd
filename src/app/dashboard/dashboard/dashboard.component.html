@@ -1,0 +1,228 @@
+<section class="dashboard-container">
+  <div class="welcome-section">
+    <h2>Welcome, Admin!</h2>
+    <p class="lead">Manage your sports event budgets with ease</p>
+  </div>
+
+  <!-- Add Budget Form -->
+  <div class="add-budget-section">
+    <h4>Add New Budget</h4>
+    <form #addForm="ngForm" (ngSubmit)="addBudget()" class="form-inline">
+      <div class="form-group">
+        <label for="eventId">Event ID</label>
+        <input 
+          id="eventId"
+          type="number" 
+          [(ngModel)]="newBudget.eventId" 
+          name="eventId" 
+          placeholder="Enter event ID" 
+          class="form-control"
+          [class.is-invalid]="validationErrors['eventId']"
+          required 
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="eventName">Event Name</label>
+        <input 
+          id="eventName"
+          type="text" 
+          [(ngModel)]="newBudget.eventName" 
+          name="eventName" 
+          placeholder="Enter event name" 
+          class="form-control"
+          [class.is-invalid]="validationErrors['eventName']"
+          required 
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="budgetAllocated">Allocated Budget</label>
+        <input 
+          id="budgetAllocated"
+          type="number" 
+          [(ngModel)]="newBudget.budgetAllocated" 
+          name="budgetAllocated" 
+          placeholder="Enter allocated budget" 
+          class="form-control"
+          [class.is-invalid]="validationErrors['budgetAllocated']"
+          min="0"
+          step="0.01"
+          required 
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="sponsorshipTotal">Sponsorship Total</label>
+        <input 
+          id="sponsorshipTotal"
+          type="number" 
+          [(ngModel)]="newBudget.sponsorshipTotal" 
+          name="sponsorshipTotal" 
+          placeholder="Enter sponsorship amount" 
+          class="form-control"
+          [class.is-invalid]="validationErrors['sponsorshipTotal']"
+          min="0"
+          step="0.01"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="preparedBy">Prepared By</label>
+        <input 
+          id="preparedBy"
+          type="text" 
+          [(ngModel)]="newBudget.preparedBy" 
+          name="preparedBy" 
+          placeholder="Enter preparer's name" 
+          class="form-control"
+          [class.is-invalid]="validationErrors['preparedBy']"
+          required 
+        />
+      </div>
+
+      <button 
+        type="submit" 
+        class="btn btn-primary"
+        [disabled]="addForm.invalid"
+      >
+        <i class="fas fa-plus"></i> Add Budget
+      </button>
+    </form>
+  </div>
+
+  <div class="actions-section text-center">
+    <button mat-raised-button color="accent" (click)="fetchBudgets()" class="btn-view-budgets">
+      <i class="fas fa-list"></i> View All Budgets
+    </button>
+  </div>
+
+  <!-- Edit Budget Form -->
+  <div class="edit-budget-section" *ngIf="editingBudgetId">
+    <h4>Edit Budget Details</h4>
+    <form #editForm="ngForm" (ngSubmit)="updateBudget()" class="form-inline">
+      <div class="form-group">
+        <label for="editAllocated">Allocated Budget</label>
+        <input 
+          id="editAllocated"
+          type="number" 
+          [(ngModel)]="editedBudget.budgetAllocated" 
+          name="editAllocated" 
+          placeholder="Enter allocated budget" 
+          class="form-control"
+          [class.is-invalid]="validationErrors['editAllocated']"
+          (input)="onEditBudgetChange()"
+          min="0"
+          step="0.01"
+          required 
+        />
+        <div class="invalid-feedback" *ngIf="validationErrors['editAllocated']">
+          {{ validationErrors['editAllocated'] }}
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label for="editUtilized">Utilized Budget</label>
+        <input 
+          id="editUtilized"
+          type="number" 
+          [(ngModel)]="editedBudget.budgetUtilized" 
+          name="editUtilized" 
+          placeholder="Enter utilized budget" 
+          class="form-control"
+          [class.is-invalid]="validationErrors['editUtilized']"
+          (input)="onEditBudgetChange()"
+          min="0"
+          step="0.01"
+          [max]="editedBudget.budgetAllocated || 0"
+          required 
+        />
+        <div class="invalid-feedback" *ngIf="validationErrors['editUtilized']">
+          {{ validationErrors['editUtilized'] }}
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label for="editPreparedBy">Prepared By</label>
+        <input 
+          id="editPreparedBy"
+          type="text" 
+          [(ngModel)]="editedBudget.preparedBy" 
+          name="editPreparedBy" 
+          placeholder="Enter preparer's name" 
+          class="form-control"
+          [class.is-invalid]="validationErrors['editPreparedBy']"
+          required 
+        />
+        <div class="invalid-feedback" *ngIf="validationErrors['editPreparedBy']">
+          {{ validationErrors['editPreparedBy'] }}
+        </div>
+      </div>
+      
+      <div class="btn-group">
+        <button 
+          type="button" 
+          class="btn btn-secondary" 
+          (click)="cancelEdit()"
+        >
+          <i class="fas fa-times"></i> Cancel
+        </button>
+        <button 
+          type="submit" 
+          class="btn btn-success"
+          [disabled]="editForm.invalid || hasValidationErrors()"
+        >
+          <i class="fas fa-check"></i> Update Budget
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Budget Data Table -->
+  <div class="budget-data-section" *ngIf="budgets.length > 0">
+    <h4>Budget Data</h4>
+    <table class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <th>Budget ID</th>
+          <th>Event ID</th>
+          <th>Event Name</th>
+          <th>Budget Allocated</th>
+          <th>Sponsorship Total</th>
+          <th>Effective Allocated</th>
+          <th>Budget Utilized</th>
+          <th>Prepared By</th>
+          <th>Created At</th>
+          <th>Last Updated</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let budget of budgets">
+          <td>{{ budget.id }}</td>
+          <td>{{ budget.eventId }}</td>
+          <td>{{ budget.eventName }}</td>
+          <td>{{ budget.budgetAllocated | number:'1.2-2' }}</td>
+          <td>{{ budget.sponsorshipTotal | number:'1.2-2' }}</td>
+          <td>{{ budget.effectiveAllocated | number:'1.2-2' }}</td>
+          <td>{{ budget.budgetUtilized | number:'1.2-2' }}</td>
+          <td>{{ budget.preparedBy }}</td>
+          <td>{{ budget.createdAt | date:'medium' }}</td>
+          <td>{{ budget.lastUpdated | date:'medium' }}</td>
+          <td>
+            <button class="btn btn-sm btn-primary me-2" (click)="startEdit(budget)">
+              <i class="material-icons">edit</i>
+            </button>
+            <button class="btn btn-sm btn-danger" (click)="deleteBudget(budget.id)">
+              <i class="material-icons">delete</i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="budgets.length === 0" class="no-budgets text-center">
+    <p>No budgets found.</p>
+  </div>
+</section>
